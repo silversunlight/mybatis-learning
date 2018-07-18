@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.EmpMapper">
+    <resultMap id="Emp_result_map" type="com.mybatis.pojo.Emp">
+        <id column="empno" property="empno"/>
+        <result column="ename" property="ename"/>
+        <result column="deptno" property="deptno"/>
+        <association property="dept" javaType="com.mybatis.pojo.Dept">
+            <id column="deptno" property="deptno"/>
+            <result column="dname" property="dname"/>
+            <result column="location" property="location"/>
+        </association>
+    </resultMap>
+    <select id="getEmpsByDeptno" resultType="com.mybatis.pojo.Emp" parameterType="_int">
+       select * from emp where deptno=#{deptno}
+   </select>
+
+    <select id="getEmpByEmpno" resultMap="Emp_result_map" parameterType="_int">
+           select
+       e.empno,
+       e.ename,
+       e.deptno,
+       d.deptno,
+       d.dname,
+       d.location
+        from emp e join dept d
+        on e.deptno=d.deptno
+        where e.empno=#{empno};
+    </select>
+</mapper>

@@ -7,7 +7,26 @@
         <result column="dname" property="dname"/>
         <result column="location" property="location"/>
     </resultMap>
+    <resultMap id="Dept_sub_resultmap" type="com.mybatis.pojo.Dept" extends="Dept_base_resultmap">
+        <collection property="emps" ofType="com.mybatis.pojo.Emp">
+            <id column="empno" property="empno"/>
+            <result column="ename" property="ename"/>
+            <result column="deptno" property="deptno"/>
+        </collection>
+    </resultMap>
+
     <select id="getDept" resultMap="Dept_base_resultmap" parameterType="_int">
         select * from dept where deptno=#{deptno}
+    </select>
+    <select id="getDetpAndEmps" resultMap="Dept_sub_resultmap" parameterType="_int">
+ select d.deptno,
+ d.dname,
+ d.location,
+ e.empno,
+ e.ename,
+ e.deptno
+ from dept d left join emp e
+  on d.deptno=e.deptno
+  where d.deptno=#{deptno};
     </select>
 </mapper>

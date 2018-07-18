@@ -4,4 +4,6 @@ import com.mybatis.pojo.Dept;
 
 public interface DeptMapper {
     Dept getDept(int deptno);
+
+    Dept getDetpAndEmps(int deptno);
 }

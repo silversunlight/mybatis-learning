@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class DeptTest {
-    private static SqlSessionFactory sqlSessionFactory=null;
+    private static SqlSessionFactory sqlSessionFactory = null;
 
     @BeforeClass
     public static void setUpClass() {
@@ -25,11 +25,20 @@ public class DeptTest {
         }
     }
 
+    //todo 增加字段之后这个就不能用了么？
     @Test
     public void testGetDept() {
-        SqlSession session=sqlSessionFactory.openSession();
+        SqlSession session = sqlSessionFactory.openSession();
         DeptMapper mapper = session.getMapper(DeptMapper.class);
         Dept dept = mapper.getDept(1);
+        System.out.println(dept.toString());
+    }
+
+    @Test
+    public void testGetDeptAndEmps() {
+        SqlSession session = sqlSessionFactory.openSession();
+        DeptMapper mapper = session.getMapper(DeptMapper.class);
+        Dept dept = mapper.getDetpAndEmps(2);
         System.out.println(dept.toString());
     }
 }
